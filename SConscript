@@ -40,11 +40,6 @@ lib_padygrcl_files = [ 'lib/clustering/louvainmethod.cpp',
 					   'lib/clustering/neighborhood.cpp',
 					   'lib/clustering/coarsening/contractor.cpp',
 					   'lib/clustering/coarsening/coarsening.cpp',
-					   'lib/logging/bexception.cpp',
-					   'lib/logging/experiments/experimentinfo.cpp',
-					   'lib/logging/experiments/experimentinfojson.cpp',
-					   'lib/logging/experiments/experimentinfolog.cpp',
-					   'lib/logging/experiments/experimentinfoobservable.cpp',
                        'lib/tools/modularitymetric.cpp' ]
 
 # Build a library from the code in KaHIP/lib/.
@@ -110,6 +105,15 @@ libkaffpa_files = [   'extern/KaHIP/lib/data_structure/graph_hierarchy.cpp',
                       'extern/KaHIP/lib/partition/uncoarsening/refinement/cycle_improvements/cycle_refinement.cpp',
                       'extern/KaHIP/lib/partition/uncoarsening/refinement/tabu_search/tabu_search.cpp'
                       ]
+libeval_files = [   'extern/KaHIP/lib/data_structure/graph_hierarchy.cpp',
+                      'extern/KaHIP/lib/io/graph_io.cpp',
+                      'extern/KaHIP/lib/tools/quality_metrics.cpp',
+                      'extern/KaHIP/lib/tools/random_functions.cpp',
+                      'extern/KaHIP/lib/partition/coarsening/matching/matching.cpp',
+                      'extern/KaHIP/lib/partition/coarsening/clustering/node_ordering.cpp',
+                      'extern/KaHIP/lib/partition/coarsening/clustering/size_constraint_label_propagation.cpp',
+                             'lib/logging/bexception.cpp'
+                      ]
 
 libkaffpa_parallel_async  = ['lib/parallel_mh_clustering/parallel_mh_async_clustering.cpp',
                              'lib/parallel_mh_clustering/population_clustering.cpp',
@@ -122,17 +126,8 @@ libkaffpa_parallel_async  = ['lib/parallel_mh_clustering/parallel_mh_async_clust
                              'lib/clustering/coarsening/contractor.cpp',
                              'lib/logging/bexception.cpp',
                              'lib/tools/modularitymetric.cpp',
-                             #'lib/clustering/cluster.cpp',
                              'lib/tools/mpi_tools.cpp' ]
 
-libmapping                = ['KaHIP/lib/mapping/local_search_mapping.cpp',
-                             'KaHIP/lib/mapping/full_search_space.cpp',
-                             'KaHIP/lib/mapping/full_search_space_pruned.cpp',
-                             'KaHIP/lib/mapping/communication_graph_search_space.cpp',
-                             'KaHIP/lib/mapping/fast_construct_mapping.cpp',
-                             'KaHIP/lib/mapping/construct_distance_matrix.cpp',
-                             'KaHIP/lib/mapping/mapping_algorithms.cpp',
-                             'KaHIP/lib/mapping/construct_mapping.cpp' ]
 
 if env['program'] == 'evaluator':
         if SYSTEM == 'Darwin':
@@ -141,7 +136,7 @@ if env['program'] == 'evaluator':
                 env['CXX'] = 'mpicxx'
 
         env.Append(CXXFLAGS = '-DMODE_EVALUATOR')
-        env.Program('evaluator', ['app/evaluator.cpp'] + libkaffpa_files + lib_padygrcl_files, LIBS=['libargtable2', 'gomp'])
+        env.Program('evaluator', ['app/evaluator.cpp'] + libeval_files + lib_padygrcl_files, LIBS=['libargtable2', 'gomp'])
 
 if env['program'] == 'evolutionary_clustering':
         env.Append(CXXFLAGS = '-DMODE_KAFFPAE')
@@ -153,7 +148,6 @@ if env['program'] == 'evolutionary_clustering':
         else:
                 env['CXX'] = 'mpicxx'
         env.Program('evolutionary_clustering', ['app/evo_clustering.cpp']+libkaffpa_files+libkaffpa_parallel_async, LIBS=['libargtable2','gomp'])
-        #env.Program('evolutionary_clustering', ['app/evo_clustering.cpp']+libkaffpa_files+libkaffpa_parallel_async, LIBS=['libargtable2','gomp','ubsan','asan'])
 
 if env['program'] == 'graphchecker':
         env.Append(CXXFLAGS = '-DMODE_GRAPHCHECKER')
