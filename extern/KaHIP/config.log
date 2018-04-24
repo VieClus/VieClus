@@ -1,0 +1,2 @@
+file /home/c_schulz/projects/coding/software_releases/VieClus/extern/KaHIP/SConstruct,line 89:
+	Configure(confdir = .sconf_temp)
