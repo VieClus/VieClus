@@ -66,11 +66,8 @@ int main(int argn, char **argv) {
                 exit(0);
         }
 
-        //std::cout <<  "graph has " <<  G.number_of_nodes() <<  " nodes and " <<  G.number_of_edges() <<  " edges"  << std::endl;
         quality_metrics qm;
 
         //std::cout << "cut \t\t\t"         << qm.edge_cut(G)                 << std::endl;
-        //std::cout << "boundary vertices \t" << qm.boundary_nodes(G)           << std::endl;
-        //std::cout << "max degree: \t\t" << G.getMaxDegree() << std::endl;
         std::cout << "modularity: \t\t" << ModularityMetric::computeModularity(G) << std::endl;
 }
