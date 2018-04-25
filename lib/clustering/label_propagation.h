@@ -1,10 +1,9 @@
 /******************************************************************************
- * graph_partitioner.h
+ * label_propagation.h
  *
- * Source of KaHIP -- Karlsruhe High Quality Partitioning.
- *
+ * Source of VieClus -- Vienna Graph Clustering 
  ******************************************************************************
- * Copyright (C) 2013-2015 Christian Schulz <christian.schulz@kit.edu>
+ * Copyright (C) 2017 Sonja Biedermann, Christian Schulz and Bernhard Schuster
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
