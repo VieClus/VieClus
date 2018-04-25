@@ -23,8 +23,6 @@
 #include "labelpropagation.h"
 
 #include "clustering/coarsening/coarsening.h"
-#include "logging/experiments/experimentinfo.h"
-#include "logging/log.h"
 #include "partition/coarsening/clustering/node_ordering.h"
 #include "partition/coarsening/contraction.h"
 #include "timer.h"
@@ -59,7 +57,6 @@ PartitionID LabelPropagation::performMultiLevelLabelPropagation(const PartitionC
     timer timer;
 
     m_G = G;
-    THR_EXP_IF(m_G == 0, "Graph to cluster is NULL.");
 
     // loop with two phases until no more node moves:
     //  1. Assign node to cluster, where the most neighbors belong to.
@@ -126,7 +123,6 @@ PartitionID LabelPropagation::performMultiLevelLabelPropagation(const PartitionC
         coarseGraphsToDelete.pop_front();
     }
 
-    THR_EXP_IF(m_G == 0, "Uncoarsening went wrong.");
 
     return m_G->get_partition_count();
 }

@@ -26,8 +26,6 @@
 #include "clustering/labelpropagation.h"
 #include "clustering/neighborhood.h"
 #include "coarsening/clustering/size_constraint_label_propagation.h"
-#include "logging/experiments/experimentinfo.h"
-#include "logging/log.h"
 #include "partition/coarsening/clustering/node_ordering.h"
 #include "partition/coarsening/contraction.h"
 #include "timer.h"
@@ -79,7 +77,6 @@ PartitionID LouvainMethod::performClusteringWithLPP(const PartitionConfig& confi
     timer timer;
 
     m_G = G;
-    THR_EXP_IF(m_G == 0, "Graph to cluster is NULL.");
 
     // to make the graph rapidly smaller we apply some levels of label propagation
     // loop with two phases until no more node moves:
@@ -191,7 +188,7 @@ PartitionID LouvainMethod::performClusteringWithLPP(const PartitionConfig& confi
         coarseGraphsToDelete.pop_front();
     }
 
-    THR_EXP_IF(m_G == 0, "Uncoarsening went wrong.");
+    //THR_EXP_IF(m_G == 0, "Uncoarsening went wrong.");
 
     std::unordered_map<PartitionID, PartitionID> new_mapping;
     PartitionID id = 0;
@@ -283,7 +280,7 @@ NodeID LouvainMethod::performNodeMoves(const PartitionConfig &config)
 
         // small numeric differences may be possible for large graphs
         // between the fine and the coarse graph
-        LOG_WARN_IF(currentQuality < oldQuality && abs(currentQuality - oldQuality) > numeric_limits<double>::epsilon(), "Current modularity may not be worse than old one.");
+        //LOG_WARN_IF(currentQuality < oldQuality && abs(currentQuality - oldQuality) > numeric_limits<double>::epsilon(), "Current modularity may not be worse than old one.");
 
 //            if (currentQuality < oldQuality)
 //            {
