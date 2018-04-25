@@ -61,8 +61,6 @@ int main(int argn, char **argv) {
                 return 0;
         }
 
-        partition_config.graph_filename = graph_filename.substr( graph_filename.find_last_of( '/' ) +1 );
-
         graph_access G;     
 
         timer t;
@@ -82,9 +80,9 @@ int main(int argn, char **argv) {
         MPI_Comm_size( communicator, &size);
 
         if( rank == ROOT ) {
-                std::cout << "time spent for clustering " << t.elapsed()  << std::endl;
+                std::cout << "time spent " << t.elapsed()  << std::endl;
                 G.set_partition_count(G.get_partition_count_compute());
-                std::cout << "finalobjective \t\t\t" << ModularityMetric::computeModularity(G) << std::endl;
+                std::cout << "modularity \t\t\t" << ModularityMetric::computeModularity(G) << std::endl;
                 
                 // write the partition to the disc 
                 std::stringstream filename;

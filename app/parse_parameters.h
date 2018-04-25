@@ -46,7 +46,7 @@ int parse_parameters(int argn, char **argv,
         struct arg_str *filename_output                      = arg_str0(NULL, "output_filename", NULL, "Specify the name of the output file (that contains the partition).");
         struct arg_int *user_seed                            = arg_int0(NULL, "seed", NULL, "Seed to use for the PRNG.");
         struct arg_str *input_partition                      = arg_str0(NULL, "input_partition", NULL, "Input partition to use.");
-        struct arg_dbl *time_limit                           = arg_dbl0(NULL, "time_limit", NULL, "Time limit in s. Default 0s .");
+        struct arg_dbl *time_limit                           = arg_dbl1(NULL, "time_limit", NULL, "Time limit in s. Default 0s .");
         struct arg_lit *mh_print_log                         = arg_lit0(NULL, "mh_print_log", "Each PE prints a logfile (timestamp, edgecut).");
         struct arg_int *cluster_upperbound                   = arg_int0(NULL, "cluster_upperbound", NULL, "Set a size-constraint on the size of a cluster. Default: none");
         struct arg_int *label_propagation_iterations         = arg_int0(NULL, "label_propagation_iterations", NULL, "Set the number of label propgation iterations. Default: 10.");
@@ -72,6 +72,8 @@ int parse_parameters(int argn, char **argv,
                 local_partitioning_repetitions,
                 input_partition,
                 filename_output,
+#elif defined MODE_EVALUATOR
+                input_partition,
 #elif defined MODE_CLUSTERING
     // for graph clustering we need some own parameters (by BSc)
     lm_minimum_quality_improvement,

@@ -77,9 +77,6 @@ void parallel_mh_async_clustering::perform_partitioning(const PartitionConfig & 
                 PartitionConfig working_config  = partition_config; 
 
                 perform_local_partitioning( working_config, G );
-                if(m_rank == ROOT) {
-                        std::cout <<  "t left " <<  (m_time_limit - m_t.elapsed()) << std::endl;
-                }
 
                 //push and recv 
                 if( m_t.elapsed() <= m_time_limit && m_size > 1) {

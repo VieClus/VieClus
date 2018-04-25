@@ -541,7 +541,7 @@ void population_clustering::mutate_random( const PartitionConfig & partition_con
         unsigned c = *std::max_element(clustering.begin(), clustering.end()) + 1;
         unsigned clusters_to_select = std::ceil(l * c);
 
-        std::cout << "mutating with l = " << l << " (clusters_to_select = " << clusters_to_select << ")\n";
+        //std::cout << "mutating with l = " << l << " (clusters_to_select = " << clusters_to_select << ")\n";
 
         assert(c != 0);
         std::uniform_int_distribution<size_t> dist{ 0, c - 1 };
