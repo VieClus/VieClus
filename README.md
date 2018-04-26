@@ -22,7 +22,7 @@ In our experimental evaluation, we show that our algorithm successfully improves
 Moreover, while the previous best result for different instances has been computed by a variety of solvers, our algorithm can now be used as a single tool to compute the result.
 
 ## Main project site:
-http://viem.taa.univie.ac.at
+http://vieclus.taa.univie.ac.at
 
 Installation Notes
 =====
