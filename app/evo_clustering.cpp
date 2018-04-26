@@ -87,7 +87,7 @@ int main(int argn, char **argv) {
                 std::stringstream filename;
                 if(!partition_config.filename_output.compare("")) {
                         // no output filename given
-                        filename << "tmpclustering" << partition_config.seed;
+                        filename << "tmpclustering";
                 } else {
                         filename << partition_config.filename_output;
                 }
