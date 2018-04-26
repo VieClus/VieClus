@@ -18,9 +18,8 @@ as a graph.
 
 This is the release of our memetic algorithm, VieClus (Vienna Graph Clustering), to tackle the graph clustering problem. 
 A key component of our contribution are natural recombine operators that employ ensemble clusterings as well as multi-level techniques. 
-In our experimental evaluation, we show that our algorithm successfully improves or reproduces all entries of the 10th DIMACS implementation~challenge under consideration in a small amount of time. In fact, for most of the small instances, we can improve the old benchmark result \emph{in less than a minute}.
+In our experimental evaluation, we show that our algorithm successfully improves or reproduces all entries of the 10th DIMACS implementation challenge under consideration in a small amount of time. In fact, for most of the small instances, we can improve the old benchmark result in less than a minute.
 Moreover, while the previous best result for different instances has been computed by a variety of solvers, our algorithm can now be used as a single tool to compute the result.
-For more details, we refer the reader to~\cite{clusteringpaper}.
 
 ## Main project site:
 http://viem.taa.univie.ac.at
