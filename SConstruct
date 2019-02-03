@@ -139,11 +139,11 @@ if "clang" in env['CC'] or "clang" in env['CXX']:
 
 else:
         if env['variant'] == 'optimized':
-          env.Append(CXXFLAGS = '-O3 -Wall -std=c++14 -DNDEBUG -DD_FILELOG_MAX_LEVEL=1 -funroll-loops -fno-stack-limit')
+          env.Append(CXXFLAGS = '-O3 -Wall -std=c++14 -DNDEBUG -DD_FILELOG_MAX_LEVEL=1 -funroll-loops -fno-stack-limit -fpermissive')
         elif env['variant'] == 'optimized_output':
-          env.Append(CXXFLAGS = '-O3 -Wall -std=c++14 -DNDEBUG -DKAFFPAOUTPUT -DD_FILELOG_MAX_LEVEL=7 -funroll-loops -fno-stack-limit' )
+          env.Append(CXXFLAGS = '-O3 -Wall -std=c++14 -DNDEBUG -DKAFFPAOUTPUT -DD_FILELOG_MAX_LEVEL=7 -funroll-loops -fno-stack-limit -fpermissive')
         else:
-          env.Append(CXXFLAGS = '-O0 -Wall -std=c++14 -g -DKAFFPAOUTPUT -DD_FILELOG_MAX_LEVEL=7')
+          env.Append(CXXFLAGS = '-O0 -Wall -std=c++14 -g -DKAFFPAOUTPUT -DD_FILELOG_MAX_LEVEL=7 -fpermissive')
           if SYSTEM != 'Darwin':
                 env.Append(CXXFLAGS = '-march=native')
                 env.Append(CCFLAGS  = '-march=native')
