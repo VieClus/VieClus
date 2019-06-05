@@ -24,11 +24,18 @@
 
 namespace VieClus {
 
-__attribute__((visibility("default"))) double run_default(Graph graph, int time_limit, int *out_k, int *out_partition_map) {
-	MPI_Init(nullptr, nullptr);
+__attribute__((visibility("default"))) void init(int *argc, char **argv[]) {
+    MPI_Init(argc, argv);
+    omp_set_num_threads(1);
+}
 
+__attribute__((visibility("default"))) double run(Graph graph, int time_limit, int seed, int *out_k, int *out_partition_map) {
 	graph_access G;
-	G.build_from_metis(graph.n, graph.xadj, graph.adjncy);
+    if (graph.vwgt == nullptr || graph.adjwgt == nullptr) {
+        G.build_from_metis(graph.n, graph.xadj, graph.adjncy);
+    } else {
+        G.build_from_metis_weighted(graph.n, graph.xadj, graph.adjncy, graph.vwgt, graph.adjwgt);
+    }
 
 	PartitionConfig partition_config;
 	configuration cfg;
@@ -36,8 +43,7 @@ __attribute__((visibility("default"))) double run_default(Graph graph, int time_
 	cfg.strong(partition_config);
 	partition_config.time_limit = time_limit;
 	partition_config.k = 1;
-
-	omp_set_num_threads(1);
+	partition_config.seed = seed;
 
 	parallel_mh_async_clustering mh;
 	mh.perform_partitioning(partition_config, G);
@@ -51,9 +57,11 @@ __attribute__((visibility("default"))) double run_default(Graph graph, int time_
 		}
 	}
 
-	MPI_Finalize();
-
 	return ModularityMetric::computeModularity(G);
+}
+
+__attribute__((visibility("default"))) void finalize() {
+  MPI_Finalize();
 }
 
 }
