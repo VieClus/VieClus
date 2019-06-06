@@ -154,3 +154,10 @@ if env['program'] == 'graphchecker':
         env.Append(CCFLAGS  = '-DMODE_GRAPHCHECKER')
         env.Program('KaHIP/graphchecker', ['KaHIP/app/graphchecker.cpp'], LIBS=['libargtable2','gomp'])
 
+if env['program'] == 'library':
+        env.Append(CXXFLAGS = '-DMODE_KAFFPAE')
+        env.Append(CXXFLAGS = '-std=c++14')
+        env.Append(CXXFLAGS = '-fvisibility=hidden')
+        env.Append(CCFLAGS  = '-DMODE_KAFFPAE')
+        env.Append(CCFLAGS = '-fvisibility=hidden')
+        env.SharedLibrary('libvieclus', ['interface/VieClus_interface.cpp']+libkaffpa_files+libkaffpa_parallel_async, LIBS=['libargtable2','gomp'])
