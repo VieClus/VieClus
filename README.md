@@ -29,11 +29,10 @@ Installation Notes
 
 Before you can start you need to install the following software packages:
 
-- Scons (http://www.scons.org/)
 - Argtable (http://argtable.sourceforge.net/)
 - OpenMPI (http://www.open-mpi.de/). Note: due to removed progress threads in OpenMPI > 1.8, please use an OpenMPI version < 1.8 or Intel MPI to obtain a scalable parallel algorithm.
 
-Once you installed the packages, just type ./compile.sh. Once you did that you can try to run the following command:
+Once you installed the packages, just type ./compile_withcmake.sh. Once you did that you can try to run the following command:
 
 mpirun -n 2 ./deploy/vieclus examples/astro-ph.graph --time_limit=60
 
