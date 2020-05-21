@@ -39,3 +39,18 @@ mpirun -n 2 ./deploy/vieclus examples/astro-ph.graph --time_limit=60
 For a description of the graph format please have a look into the manual.
 
 
+Licence
+=====
+The program is licenced under MIT licence.
+If you publish results using our algorithms, please acknowledge our work by quoting the following paper:
+
+@inproceedings{BiedermannHSS18,
+             AUTHOR = {Biedermann, Sonja and Henzinger, Monika and Schulz, Christian and Schuster, Bernhard},
+             TITLE = {{Memetic Graph Clustering}},
+             BOOKTITLE = {{Proceedings of the 17th International Symposium on Experimental Algorithms (SEA'18)}},
+             SERIES = {{LIPIcs}},
+             PUBLISHER = {Dagstuhl},
+             NOTE = {Technical Report, arXiv:1802.07034},
+             YEAR = {2018}
+}
+
