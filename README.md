@@ -18,7 +18,7 @@ as a graph.
 <p align="center">
 <img src="./img/example_clustering.png"
   alt="example clustering"
-  width="601" height="558">
+  width="538" height="468">
 </p>
 
 
