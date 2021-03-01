@@ -1,5 +1,6 @@
 VieClus v1.0 
 =====
+[![Build Status](https://travis-ci.org/VieClus/VieClus.svg?branch=master)](https://travis-ci.org/VieClus/VieClus)
 
 The graph clustering framework VieClus -- Vienna Graph Clustering.
 
