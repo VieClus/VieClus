@@ -1,8 +1,7 @@
-VieClus v1.0 
-=====
-[![Build Status](https://travis-ci.org/VieClus/VieClus.svg?branch=master)](https://travis-ci.org/VieClus/VieClus)
-
+VieClus v1.0 [![Build Status](https://travis-ci.org/VieClus/VieClus.svg?branch=master)](https://travis-ci.org/VieClus/VieClus)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cdbe232aec5a4356aa259bc038cd3006)](https://www.codacy.com/gh/VieClus/VieClus/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=VieClus/VieClus&amp;utm_campaign=Badge_Grade)
 The graph clustering framework VieClus -- Vienna Graph Clustering.
+=====
 
 Graph clustering is the problem of detecting tightly connected regions of a
 graph. Depending on the task, knowledge about the structure of the graph can
