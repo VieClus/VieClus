@@ -15,6 +15,12 @@ epidemics---possible applications are plentiful, as
 almost all systems containing interacting or coexisting entities can be modeled
 as a graph. 
 
+<p align="center">
+<img src="./img/example_clustering.png"
+  alt="example clustering"
+  width="601" height="558">
+</p>
+
 
 This is the release of our memetic algorithm, VieClus (Vienna Graph Clustering), to tackle the graph clustering problem. 
 A key component of our contribution are natural recombine operators that employ ensemble clusterings as well as multi-level techniques. 
