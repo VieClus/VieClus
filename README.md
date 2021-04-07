@@ -38,7 +38,7 @@ Installation Notes
 Before you can start you need to install the following software packages:
 
 - Argtable (http://argtable.sourceforge.net/)
-- OpenMPI (http://www.open-mpi.de/). Note: due to removed progress threads in OpenMPI > 1.8, please use an OpenMPI version < 1.8 or Intel MPI to obtain a scalable parallel algorithm.
+- OpenMPI (http://www.open-mpi.org/). Note: due to removed progress threads in OpenMPI > 1.8, please use an OpenMPI version < 1.8 or Intel MPI to obtain a scalable parallel algorithm.
 
 Once you installed the packages, just type 
 ``./compile_withcmake.sh``
