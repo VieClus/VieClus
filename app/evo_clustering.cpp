@@ -4,7 +4,7 @@
  * Source of VieClus -- Vienna Graph Clustering 
  *****************************************************************************/
 
-#include <argtable2.h>
+#include <argtable3.h>
 #include <iostream>
 #include <math.h>
 #include <mpi.h>
