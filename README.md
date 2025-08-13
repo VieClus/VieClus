@@ -1,4 +1,4 @@
-VieClus v1.1 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/cdbe232aec5a4356aa259bc038cd3006)](https://www.codacy.com/gh/VieClus/VieClus/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=VieClus/VieClus&amp;utm_campaign=Badge_Grade)
+VieClus v1.1 
 =====
 
 The graph clustering framework VieClus -- Vienna Graph Clustering.
