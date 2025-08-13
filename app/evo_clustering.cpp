@@ -51,7 +51,9 @@ int main(int argn, char **argv) {
         graph_io::readGraphWeighted(G, graph_filename);
 
         std::cout << "io time: " << t.elapsed()  << std::endl;
+#ifdef _OPENMP
         omp_set_num_threads(1);
+#endif
         t.restart();
         
         partition_config.k = 1;

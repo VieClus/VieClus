@@ -5,7 +5,13 @@
  *
  *****************************************************************************/
 
+#ifdef _OPENMP
 #include <omp.h>
+#else
+// Fallback implementations for non-OpenMP builds
+inline int omp_get_max_threads() { return 1; }
+inline int omp_get_thread_num() { return 0; }
+#endif
 
 #include "kway_graph_refinement_commons.h"
 

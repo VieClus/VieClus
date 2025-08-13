@@ -14,7 +14,7 @@
 #include "limits.h"
 #include "partial_boundary.h"
 
-using namespace __gnu_cxx;
+// Removed __gnu_cxx namespace usage for macOS compatibility
 
 struct boundary_pair {
         PartitionID k;

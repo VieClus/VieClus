@@ -13,7 +13,7 @@
 #include "definitions.h"
 #include "limits.h"
 
-using namespace __gnu_cxx;
+// Removed __gnu_cxx namespace usage for macOS compatibility
 
 struct compare_nodes {
         bool operator()(const NodeID lhs, const NodeID rhs) const {
