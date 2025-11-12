@@ -11,7 +11,7 @@
 #include "data_structure/graph_access.h"
 #include "partition_config.h"
 #include "population_clustering.h"
-#include "timer.h"
+#include "tools/global_timer.h"
 
 class parallel_mh_async_clustering {
 public:
@@ -28,7 +28,6 @@ public:
 private:
         //misc
         const unsigned MASTER;
-        timer    m_t;
         int      m_rank;
         int      m_size;
         double   m_time_limit;

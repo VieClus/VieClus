@@ -18,7 +18,7 @@
 #include "population_clustering.h"
 #include "quality_metrics.h"
 #include "random_functions.h"
-#include "timer.h"
+#include "tools/global_timer.h"
 #include "uncoarsening/refinement/cycle_improvements/cycle_refinement.h"
 #include "clustering/louvainmethod.h"
 #include "clustering/coarsening/contractor.h"
@@ -34,7 +34,7 @@ population_clustering::population_clustering( MPI_Comm communicator, const Parti
         m_num_ENCs           = 0;
         m_time_stamp         = 0;
         m_communicator       = communicator;
-        m_global_timer.restart();
+        global_timer_restart();
         best_objective = -1;
 }
 
@@ -103,7 +103,7 @@ void population_clustering::createIndividuum(const PartitionConfig & config,
 
 void population_clustering::insert(graph_access & G, Individuum & ind) {
         if( ind.objective > best_objective ) {
-                m_filebuffer_string <<  m_global_timer.elapsed() <<  " " <<  ind.objective <<  std::endl;
+                m_filebuffer_string <<  global_timer_elapsed() <<  " " <<  ind.objective <<  std::endl;
                 m_time_stamp++;
                 best_objective = ind.objective;
         }
@@ -693,7 +693,7 @@ void population_clustering::print() {
 }
 
 void population_clustering::write_log(std::string & filename) {
-        m_filebuffer_string <<  m_global_timer.elapsed() <<  " " <<  best_objective <<  std::endl;
+        m_filebuffer_string <<  global_timer_elapsed() <<  " " <<  best_objective <<  std::endl;
         std::ofstream f(filename.c_str());
         f << m_filebuffer_string.str();
         f.close();

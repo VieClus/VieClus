@@ -16,7 +16,7 @@
 #include "data_structure/graph_access.h"
 #include "clustering/coarsening/coarsening.h"
 #include "partition_config.h"
-#include "timer.h"
+#include "tools/global_timer.h"
 #include "clustering/louvainmethod.h"
 #include "configuration.h"
 #include "tools/modularitymetric.h"
@@ -343,7 +343,6 @@ class population_clustering {
                 MPI_Comm m_communicator;
 
                 std::stringstream m_filebuffer_string;
-                timer   	  m_global_timer;
 };
 
 

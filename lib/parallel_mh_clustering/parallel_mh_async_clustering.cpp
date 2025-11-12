@@ -55,7 +55,7 @@ void parallel_mh_async_clustering::perform_partitioning(const PartitionConfig & 
         PartitionConfig ini_working_config  = partition_config; 
         initialize( ini_working_config, G);
 
-        m_t.restart();
+        global_timer_restart();
         exchanger_clustering ex(m_communicator);
         do {
                 PartitionConfig working_config  = partition_config; 
@@ -63,7 +63,7 @@ void parallel_mh_async_clustering::perform_partitioning(const PartitionConfig & 
                 perform_local_partitioning( working_config, G );
 
                 //push and recv 
-                if( m_t.elapsed() <= m_time_limit && m_size > 1) {
+                if( global_timer_elapsed() <= m_time_limit && m_size > 1) {
                         unsigned messages = ceil(log(m_size));
                         for( unsigned i = 0; i < messages; i++) {
                                 ex.push_best( working_config, G, *m_island );
@@ -72,7 +72,7 @@ void parallel_mh_async_clustering::perform_partitioning(const PartitionConfig & 
                 }
 
                 m_rounds++;
-        } while( m_t.elapsed() <= m_time_limit );
+        } while( global_timer_elapsed() <= m_time_limit );
 
         collect_best_partitioning(G, partition_config);
 
@@ -101,11 +101,11 @@ void parallel_mh_async_clustering::initialize(PartitionConfig & working_config, 
         // calculate the poolsize and async Bcast the poolsize.
         // recv. has to be sync
         Individuum first_one;
-        m_t.restart();
+        global_timer_restart();
         m_island->createIndividuum( working_config, G, first_one, true); 
         std::cout <<  "created with objective " <<  first_one.objective << std::endl;
 
-        double time_spend = m_t.elapsed();
+        double time_spend = global_timer_elapsed();
         m_island->insert(G, first_one);
 
         //compute S and Bcast
@@ -211,7 +211,7 @@ double parallel_mh_async_clustering::perform_local_partitioning(PartitionConfig 
                 }
 
                 //try to combine to random inidividuals from pool 
-                if( m_t.elapsed() > m_time_limit ) {
+                if( global_timer_elapsed() > m_time_limit ) {
                         break;
                 }
         }
