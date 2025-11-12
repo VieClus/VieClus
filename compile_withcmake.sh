@@ -14,7 +14,11 @@ rm -rf deploy
 rm -rf build
 mkdir build
 cd build
-cmake ../
+if [[ "$1" == "NOMPI" ]]; then
+        cmake -DNOMPI=ON ../
+else
+        cmake ../
+fi
 make -j $NCORES
 cd ..
 

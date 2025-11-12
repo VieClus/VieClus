@@ -5,7 +5,11 @@
  *
  *****************************************************************************/
 
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "pseudo_mpi.h"
+#endif
 
 #include "graph_communication.h"
 

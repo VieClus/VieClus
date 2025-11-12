@@ -4,7 +4,11 @@
  * Source of VieClus -- Vienna Graph Clustering 
  *****************************************************************************/
 
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 
 #include "exchanger_clustering.h"
 #include "tools/quality_metrics.h"

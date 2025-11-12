@@ -7,7 +7,11 @@
 #include <argtable3.h>
 #include <iostream>
 #include <math.h>
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 #include <regex.h>
 #include <sstream>
 #include <stdio.h>
@@ -28,7 +32,11 @@
 
 int main(int argn, char **argv) {
 
-        MPI_Init(&argn, &argv);    /* starts MPI */
+        MPI_Init(&argn, &argv);
+
+#ifdef USE_PSEUDO_MPI
+        std::cout << "Warning: Running without MPI support (using pseudo_mpi)" << std::endl;
+#endif    /* starts MPI */
 
         PartitionConfig partition_config;
         std::string graph_filename;

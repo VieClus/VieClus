@@ -9,7 +9,11 @@
 #define POPULATION_AEFH46G6A
 
 #include <sstream>
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 #include <unordered_map>
 #include <functional>
 #include <algorithm>

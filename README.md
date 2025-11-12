@@ -42,9 +42,19 @@ Before you can start you need to install the following software packages:
 
 Once you installed the packages, just type 
 ``./compile_withcmake.sh``
+
+To compile without MPI support (using pseudo_mpi.h), use:
+``./compile_withcmake.sh NOMPI``
+
+**Note:** MPI support is preferred as it enables the parallel algorithm which typically yields better solutions.
+
 Once you did that you can try to run the following command:
 
+With MPI support:
 ``mpirun -n 2 ./deploy/vieclus examples/astro-ph.graph --time_limit=60``
+
+Without MPI support:
+``./deploy/vieclus examples/astro-ph.graph --time_limit=60``
 
 For a description of the graph format please have a look into the manual.
 

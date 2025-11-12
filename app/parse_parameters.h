@@ -11,7 +11,11 @@
 #ifdef _OPENMP
 #include <omp.h>
 #endif
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 #include <sstream>
 #include "configuration.h"
 

@@ -8,7 +8,11 @@
 #ifndef PARALLEL_MH_ASYNC_HF106Y0G
 #define PARALLEL_MH_ASYNC_HF106Y0G
 
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 #include "data_structure/graph_access.h"
 #include "partition_config.h"
 #include "population_clustering.h"

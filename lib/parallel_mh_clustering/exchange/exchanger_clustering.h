@@ -7,7 +7,11 @@
 #ifndef EXCHANGER_YPB6QKNL
 #define EXCHANGER_YPB6QKNL
 
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 
 #include "data_structure/graph_access.h"
 #include "parallel_mh_clustering/population_clustering.h"

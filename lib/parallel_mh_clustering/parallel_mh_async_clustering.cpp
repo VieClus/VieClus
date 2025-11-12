@@ -7,7 +7,11 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#ifdef USE_MPI
 #include <mpi.h>
+#else
+#include "tools/pseudo_mpi.h"
+#endif
 #include <sstream>
 #include <stdio.h>
 
