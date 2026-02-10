@@ -198,29 +198,55 @@ if(NOT NOMPI)
   target_include_directories(libclustering PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
 
-add_executable(graphchecker extern/KaHIP/app/graphchecker.cpp $<TARGET_OBJECTS:libkaffpa>)
-target_compile_definitions(graphchecker PRIVATE "-DMODE_GRAPHCHECKER")
-target_link_libraries(graphchecker ${OpenMP_CXX_LIBRARIES})
-install(TARGETS graphchecker DESTINATION bin)
+if(NOT SKBUILD)
+  add_executable(graphchecker extern/KaHIP/app/graphchecker.cpp $<TARGET_OBJECTS:libkaffpa>)
+  target_compile_definitions(graphchecker PRIVATE "-DMODE_GRAPHCHECKER")
+  target_link_libraries(graphchecker ${OpenMP_CXX_LIBRARIES})
+  install(TARGETS graphchecker DESTINATION bin)
 
 
-add_executable(evaluator app/evaluator.cpp $<TARGET_OBJECTS:libeval> $<TARGET_OBJECTS:libpadygrcl> )
-target_compile_definitions(evaluator PRIVATE "-DMODE_EVALUATOR")
-if(NOT NOMPI)
-  target_include_directories(evaluator PUBLIC ${MPI_CXX_INCLUDE_PATH})
-  target_link_libraries(evaluator ${OpenMP_CXX_LIBRARIES} ${MPI_CXX_LIBRARIES})
-else()
-  target_link_libraries(evaluator ${OpenMP_CXX_LIBRARIES})
+  add_executable(evaluator app/evaluator.cpp $<TARGET_OBJECTS:libeval> $<TARGET_OBJECTS:libpadygrcl> )
+  target_compile_definitions(evaluator PRIVATE "-DMODE_EVALUATOR")
+  if(NOT NOMPI)
+    target_include_directories(evaluator PUBLIC ${MPI_CXX_INCLUDE_PATH})
+    target_link_libraries(evaluator ${OpenMP_CXX_LIBRARIES} ${MPI_CXX_LIBRARIES})
+  else()
+    target_link_libraries(evaluator ${OpenMP_CXX_LIBRARIES})
+  endif()
+  install(TARGETS evaluator DESTINATION bin)
+
+  add_executable(evolutionary_clustering app/evo_clustering.cpp $<TARGET_OBJECTS:libkaffpa> $<TARGET_OBJECTS:libclustering> )
+  target_compile_definitions(evolutionary_clustering PRIVATE "-DMODE_KAFFPAE")
+  if(NOT NOMPI)
+    target_include_directories(evolutionary_clustering PUBLIC ${MPI_CXX_INCLUDE_PATH})
+    target_link_libraries(evolutionary_clustering ${OpenMP_CXX_LIBRARIES} ${MPI_CXX_LIBRARIES})
+  else()
+    target_link_libraries(evolutionary_clustering ${OpenMP_CXX_LIBRARIES})
+  endif()
+  install(TARGETS evolutionary_clustering DESTINATION bin)
 endif()
-install(TARGETS evaluator DESTINATION bin)
 
-add_executable(evolutionary_clustering app/evo_clustering.cpp $<TARGET_OBJECTS:libkaffpa> $<TARGET_OBJECTS:libclustering> )
-target_compile_definitions(evolutionary_clustering PRIVATE "-DMODE_KAFFPAE")
-if(NOT NOMPI)
-  target_include_directories(evolutionary_clustering PUBLIC ${MPI_CXX_INCLUDE_PATH})
-  target_link_libraries(evolutionary_clustering ${OpenMP_CXX_LIBRARIES} ${MPI_CXX_LIBRARIES})
-else()
-  target_link_libraries(evolutionary_clustering ${OpenMP_CXX_LIBRARIES})
+# pybind11 module
+option(BUILDPYTHONMODULE "Build Python binding." OFF)
+if (BUILDPYTHONMODULE)
+  find_package(pybind11 REQUIRED)
+
+  # Static library containing all VieClus + KaHIP objects plus the C interface
+  add_library(vieclus_static STATIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/interface/vieclus_interface.cpp
+    $<TARGET_OBJECTS:libkaffpa>
+    $<TARGET_OBJECTS:libclustering>
+  )
+  target_link_libraries(vieclus_static ${OpenMP_CXX_LIBRARIES})
+
+  pybind11_add_module(vieclus_python_binding ${CMAKE_CURRENT_SOURCE_DIR}/misc/pymodule/vieclus.cpp)
+
+  if(SKBUILD)
+    install(TARGETS vieclus_python_binding DESTINATION vieclus)
+  else()
+    install(TARGETS vieclus_python_binding DESTINATION "${CMAKE_INSTALL_PYTHONDIR}/vieclus")
+  endif()
+
+  target_link_libraries(vieclus_python_binding PUBLIC vieclus_static)
+  set_target_properties(vieclus_python_binding PROPERTIES OUTPUT_NAME "vieclus")
 endif()
-install(TARGETS evolutionary_clustering DESTINATION bin)
-
