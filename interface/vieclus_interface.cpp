@@ -76,8 +76,8 @@ void vieclus_clustering(int* n, int* vwgt, int* xadj,
                 config.cluster_upperbound = cluster_upperbound;
                 config.upper_bound_partition = cluster_upperbound;
         } else {
-                config.cluster_upperbound = std::numeric_limits<NodeWeight>::max();
-                config.upper_bound_partition = std::numeric_limits<NodeWeight>::max();
+                config.cluster_upperbound = std::numeric_limits<NodeWeight>::max() / 2;
+                config.upper_bound_partition = std::numeric_limits<NodeWeight>::max() / 2;
         }
 
         // Build graph
