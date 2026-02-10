@@ -86,7 +86,7 @@ g.add_undirected_edge(2, 3, 1)  # weak bridge between two communities
 # Convert to CSR format and cluster
 vwgt, xadj, adjcwgt, adjncy = g.get_csr_arrays()
 modularity, clustering = vieclus.cluster(vwgt, xadj, adjcwgt, adjncy,
-                                         mode=vieclus.STRONG, time_limit=1.0)
+                                         time_limit=1.0)
 
 print(f"Modularity: {modularity}")
 print(f"Clustering: {clustering}")
@@ -106,7 +106,6 @@ adjcwgt = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 modularity, clustering = vieclus.cluster(vwgt, xadj, adjcwgt, adjncy,
                                          suppress_output=True,
                                          seed=0,
-                                         mode=vieclus.ECO,
                                          time_limit=2.0)
 
 print(f"Modularity: {modularity}")
@@ -125,7 +124,6 @@ The `vieclus.cluster` function takes the following arguments:
 | `adjncy` | list | *required* | CSR adjacency array (length m) |
 | `suppress_output` | bool | `True` | Suppress console output |
 | `seed` | int | `0` | Random seed |
-| `mode` | int | `STRONG` | Clustering mode: `vieclus.FAST`, `vieclus.ECO`, or `vieclus.STRONG` |
 | `time_limit` | float | `1.0` | Time limit in seconds |
 | `cluster_upperbound` | int | `0` | Max cluster size (0 = no limit) |
 
@@ -137,7 +135,7 @@ Release Notes
 ### v1.2
 - Added Python interface (`pip install vieclus`) with pybind11 bindings
 - Added `vieclus_graph` helper class for easy graph construction (same interface as KaHIP)
-- Added `vieclus.cluster()` function with FAST, ECO, and STRONG modes
+- Added `vieclus.cluster()` function
 - Added PyPI packaging with scikit-build-core
 - Added GitHub Actions CI and automated PyPI publishing
 - Added NOMPI compilation support

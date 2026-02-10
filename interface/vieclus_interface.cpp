@@ -27,25 +27,6 @@
 #include <omp.h>
 #endif
 
-static void internal_vieclus_set_configuration(configuration & cfg,
-                                               PartitionConfig & config,
-                                               int mode) {
-        switch (mode) {
-                case VIECLUS_FAST:
-                        cfg.fast(config);
-                        break;
-                case VIECLUS_ECO:
-                        cfg.eco(config);
-                        break;
-                case VIECLUS_STRONG:
-                        cfg.strong(config);
-                        break;
-                default:
-                        cfg.eco(config);
-                        break;
-        }
-}
-
 static void internal_build_graph(int* n,
                                  int* vwgt,
                                  int* xadj,
@@ -69,7 +50,7 @@ static void internal_build_graph(int* n,
 
 void vieclus_clustering(int* n, int* vwgt, int* xadj,
                         int* adjcwgt, int* adjncy,
-                        bool suppress_output, int seed, int mode,
+                        bool suppress_output, int seed,
                         double time_limit, int cluster_upperbound,
                         double* modularity, int* num_clusters, int* clustering) {
 
@@ -81,10 +62,10 @@ void vieclus_clustering(int* n, int* vwgt, int* xadj,
         omp_set_num_threads(1);
 #endif
 
-        // Configure
+        // Configure (always use STRONG)
         PartitionConfig config;
         configuration cfg;
-        internal_vieclus_set_configuration(cfg, config, mode);
+        cfg.strong(config);
 
         config.k = 1;
         config.seed = seed;

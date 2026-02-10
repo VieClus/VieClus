@@ -14,7 +14,6 @@ pybind11::object wrap_vieclus(
                 const pybind11::object &adjncy,
                 bool suppress_output,
                 int seed,
-                int mode,
                 double time_limit,
                 int cluster_upperbound) {
         int n = pybind11::len(xadj) - 1;
@@ -38,7 +37,7 @@ pybind11::object wrap_vieclus(
 
         vieclus_clustering(&n, &vwgtv[0], &xadjv[0],
                            &adjwgtv[0], &adjncyv[0],
-                           suppress_output, seed, mode,
+                           suppress_output, seed,
                            time_limit, cluster_upperbound,
                            &modularity, &num_clusters, clustering);
 
@@ -60,7 +59,6 @@ PYBIND11_MODULE(vieclus, m) {
               pybind11::arg("adjncy"),
               pybind11::arg("suppress_output") = true,
               pybind11::arg("seed") = 0,
-              pybind11::arg("mode") = 2,
               pybind11::arg("time_limit") = 1.0,
               pybind11::arg("cluster_upperbound") = 0);
 }

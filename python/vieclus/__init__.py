@@ -17,12 +17,6 @@ except ImportError as e:
         "Make sure the package is properly installed."
     ) from e
 
-# Clustering mode constants
-FAST = 0
-ECO = 1
-STRONG = 2
-
-
 class vieclus_graph:
     """Graph class for constructing graphs and converting to CSR format for VieClus.
 
@@ -87,4 +81,4 @@ class vieclus_graph:
         return vwgt, xadj, adjcwgt, adjncy
 
 
-__all__ = ["cluster", "vieclus_graph", "__version__", "FAST", "ECO", "STRONG"]
+__all__ = ["cluster", "vieclus_graph", "__version__"]

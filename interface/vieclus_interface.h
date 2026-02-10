@@ -12,11 +12,7 @@ extern "C"
 {
 #endif
 
-const int VIECLUS_FAST   = 0;
-const int VIECLUS_ECO    = 1;
-const int VIECLUS_STRONG = 2;
-
-// Graph clustering using VieClus.
+// Graph clustering using VieClus (always uses STRONG configuration).
 // Uses METIS CSR format (same as KaHIP).
 //
 // Input:
@@ -27,7 +23,6 @@ const int VIECLUS_STRONG = 2;
 //   adjncy        - CSR adjacency array (array of m ints)
 //   suppress_output - if true, suppress console output
 //   seed          - random seed
-//   mode          - VIECLUS_FAST (0), VIECLUS_ECO (1), or VIECLUS_STRONG (2)
 //   time_limit    - time limit in seconds
 //   cluster_upperbound - max cluster size (0 = no limit)
 //
@@ -37,7 +32,7 @@ const int VIECLUS_STRONG = 2;
 //   clustering    - cluster assignment array (array of n ints, must be pre-allocated)
 void vieclus_clustering(int* n, int* vwgt, int* xadj,
                         int* adjcwgt, int* adjncy,
-                        bool suppress_output, int seed, int mode,
+                        bool suppress_output, int seed,
                         double time_limit, int cluster_upperbound,
                         double* modularity, int* num_clusters, int* clustering);
 
