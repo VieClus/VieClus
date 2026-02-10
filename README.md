@@ -1,5 +1,6 @@
-VieClus v1.1 
+VieClus v1.2
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/vieclus)](https://pypi.org/project/vieclus/)
 =====
 
 The graph clustering framework VieClus -- Vienna Graph Clustering.
@@ -29,9 +30,6 @@ Moreover, while the previous best result for different instances has been comput
   width="538" height="468">
 </p>
 
-## Main project site:
-http://vieclus.taa.univie.ac.at
-
 Installation Notes
 =====
 
@@ -58,6 +56,98 @@ Without MPI support:
 
 For a description of the graph format please have a look into the manual.
 
+Python Interface
+=====
+
+You can install the Python interface via pip:
+``pip install vieclus``
+
+Or build from source:
+``pip install .``
+
+### Example: Using the vieclus_graph class
+
+```python
+import vieclus
+
+# Build a graph using the vieclus_graph helper class
+g = vieclus.vieclus_graph()
+g.set_num_nodes(6)
+
+# Add edges (undirected, with weights)
+g.add_undirected_edge(0, 1, 5)
+g.add_undirected_edge(1, 2, 5)
+g.add_undirected_edge(0, 2, 5)
+g.add_undirected_edge(3, 4, 5)
+g.add_undirected_edge(4, 5, 5)
+g.add_undirected_edge(3, 5, 5)
+g.add_undirected_edge(2, 3, 1)  # weak bridge between two communities
+
+# Convert to CSR format and cluster
+vwgt, xadj, adjcwgt, adjncy = g.get_csr_arrays()
+modularity, clustering = vieclus.cluster(vwgt, xadj, adjcwgt, adjncy,
+                                         mode=vieclus.STRONG, time_limit=1.0)
+
+print(f"Modularity: {modularity}")
+print(f"Clustering: {clustering}")
+```
+
+### Example: Using raw CSR arrays
+
+```python
+import vieclus
+
+# Graph in METIS CSR format (same as KaHIP)
+xadj   = [0, 2, 5, 7, 9, 12]
+adjncy = [1, 4, 0, 2, 4, 1, 3, 2, 4, 0, 1, 3]
+vwgt   = [1, 1, 1, 1, 1]
+adjcwgt = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+modularity, clustering = vieclus.cluster(vwgt, xadj, adjcwgt, adjncy,
+                                         suppress_output=True,
+                                         seed=0,
+                                         mode=vieclus.ECO,
+                                         time_limit=2.0)
+
+print(f"Modularity: {modularity}")
+print(f"Clustering: {clustering}")
+```
+
+### Parameters
+
+The `vieclus.cluster` function takes the following arguments:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `vwgt` | list | *required* | Node weights (length n) |
+| `xadj` | list | *required* | CSR index array (length n+1) |
+| `adjcwgt` | list | *required* | Edge weights (length m) |
+| `adjncy` | list | *required* | CSR adjacency array (length m) |
+| `suppress_output` | bool | `True` | Suppress console output |
+| `seed` | int | `0` | Random seed |
+| `mode` | int | `STRONG` | Clustering mode: `vieclus.FAST`, `vieclus.ECO`, or `vieclus.STRONG` |
+| `time_limit` | float | `1.0` | Time limit in seconds |
+| `cluster_upperbound` | int | `0` | Max cluster size (0 = no limit) |
+
+Returns a tuple `(modularity, clustering)` where `modularity` is a float in [-1, 1] and `clustering` is a list of cluster IDs for each node.
+
+Release Notes
+=====
+
+### v1.2
+- Added Python interface (`pip install vieclus`) with pybind11 bindings
+- Added `vieclus_graph` helper class for easy graph construction (same interface as KaHIP)
+- Added `vieclus.cluster()` function with FAST, ECO, and STRONG modes
+- Added PyPI packaging with scikit-build-core
+- Added GitHub Actions CI and automated PyPI publishing
+- Added NOMPI compilation support
+
+### v1.1
+- Added cmake build system
+- Added option to compile without MPI support
+
+### v1.0
+- Initial release of the memetic graph clustering algorithm
 
 Licence
 =====
