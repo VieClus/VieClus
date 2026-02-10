@@ -33,26 +33,32 @@ Moreover, while the previous best result for different instances has been comput
 Installation Notes
 =====
 
-Before you can start you need to install the following software packages:
+### C++ Command Line Tool
 
-- Argtable (http://argtable.sourceforge.net/)
-- OpenMPI (http://www.open-mpi.org/). Note: due to removed progress threads in OpenMPI > 1.8, please use an OpenMPI version < 1.8 or Intel MPI to obtain a scalable parallel algorithm.
+VieClus can be compiled with or without MPI support.
 
-Once you installed the packages, just type 
-``./compile_withcmake.sh``
+#### With MPI (recommended for best solution quality)
 
-To compile without MPI support (using pseudo_mpi.h), use:
-``./compile_withcmake.sh NOMPI``
+MPI enables the parallel evolutionary algorithm which typically yields better solutions.
 
-**Note:** MPI support is preferred as it enables the parallel algorithm which typically yields better solutions.
+Prerequisites:
+- OpenMPI (http://www.open-mpi.org/) -- note: due to removed progress threads in OpenMPI > 1.8, please use an OpenMPI version < 1.8 or Intel MPI to obtain a scalable parallel algorithm.
 
-Once you did that you can try to run the following command:
+```bash
+./compile_withcmake.sh
+mpirun -n 2 ./deploy/vieclus examples/astro-ph.graph --time_limit=60
+```
 
-With MPI support:
-``mpirun -n 2 ./deploy/vieclus examples/astro-ph.graph --time_limit=60``
+#### Without MPI (NOMPI)
 
-Without MPI support:
-``./deploy/vieclus examples/astro-ph.graph --time_limit=60``
+If you do not have MPI installed or only need single-process execution, you can compile without MPI support. The algorithm will run on a single process using a pseudo-MPI layer.
+
+```bash
+./compile_withcmake.sh NOMPI
+./deploy/vieclus examples/astro-ph.graph --time_limit=60
+```
+
+No additional dependencies are required for the NOMPI build.
 
 For a description of the graph format please have a look into the manual.
 
