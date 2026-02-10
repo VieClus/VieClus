@@ -51,4 +51,4 @@ jobs:
     - name: Build and install Python module
       run: python -m pip install -e .
     - name: Test Python module
-      run: python test_vieclus.py
+      run: python python/test_vieclus.py
